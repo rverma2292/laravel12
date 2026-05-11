@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Set;
 use Illuminate\Support\Str;
+use Filament\Forms\Components\FileUpload;
 
 class PostResource extends Resource
 {
@@ -40,6 +41,11 @@ class PostResource extends Resource
                 Forms\Components\Textarea::make('content')
                     ->required()
                     ->columnSpanFull(),
+                FileUpload::make('image')
+                    ->image() // Validates that it is an image
+                    ->directory('post-images') // Saves to storage/app/public/post-images
+                    ->imageEditor() // Optional: allows cropping/rotating in the browser!
+                    ->columnSpanFull(), // Makes it take the full width of the form
                 Forms\Components\Toggle::make('published')
                     ->required(),
                 Forms\Components\Select::make('category_id')
@@ -59,6 +65,8 @@ class PostResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\ImageColumn::make('image')
+                    ->alignCenter(),
                 Tables\Columns\TextColumn::make('title')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('slug')

@@ -14,6 +14,7 @@ class Post extends Model
         'slug',
         'content',
         'published',
+        'image',
     ];
 
     public function Comments() {
