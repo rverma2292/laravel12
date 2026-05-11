@@ -63,6 +63,9 @@ class PostResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('slug')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('category.name') // Shows the category name instead of ID
+                ->badge()
+                ->color('info'),
                 Tables\Columns\IconColumn::make('published')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('created_at')
@@ -75,7 +78,7 @@ class PostResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                Tables\Filters\TernaryFilter::make('published')
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
