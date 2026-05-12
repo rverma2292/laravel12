@@ -19,6 +19,8 @@ class UserResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-users';
 
+    protected static ?string $recordTitleAttribute = 'email';
+
     public static function form(Form $form): Form
     {
         return $form
@@ -90,5 +92,10 @@ class UserResource extends Resource
     public static function canViewAny(): bool
     {
         return auth()->user()->email === 'rahulrnjansrivastav@gmail.com';
+    }
+
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['name', 'email'];
     }
 }

@@ -11,6 +11,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Set;
 use Illuminate\Support\Str;
@@ -23,6 +24,8 @@ class PostResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-pencil-square';
     protected static ?string $navigationGroup = 'Blog Management';
     protected static ?int $navigationSort = 1;
+    //By adding this, it will add global search input to dashboard
+    protected static ?string $recordTitleAttribute = 'title';
 
     public static function form(Form $form): Form
     {
@@ -111,6 +114,15 @@ class PostResource extends Resource
             'index' => Pages\ListPosts::route('/'),
             'create' => Pages\CreatePost::route('/create'),
             'edit' => Pages\EditPost::route('/{record}/edit'),
+        ];
+    }
+
+    public static function getGlobalSearchResultDetails(Model $record): array
+    {
+        return [
+            // The '?' ensures it doesn't crash if category is missing
+            'Category' => $record->category?->name ?? 'No Category',
+            'Status' => $record->published ? 'Published' : 'Draft',
         ];
     }
 }
