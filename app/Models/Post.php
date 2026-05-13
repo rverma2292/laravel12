@@ -28,4 +28,12 @@ class Post extends Model
     public function likes() {
         return $this->morphMany(Like::class, 'likeable');
     }
+
+    /**
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'slug'; //to find with slug
+    }
 }
