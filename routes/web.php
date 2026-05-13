@@ -20,3 +20,10 @@ Route::get('/test', function () {
 
 Route::resource('/posts', PostController::class);
 Route::post('/posts/{post}/like', [LikeController::class, 'store'])->name('posts.like');
+
+Route::get('/product/test-product', [PaymentController::class, 'index'])->name('payment.index');
+Route::post('/payment/initiate', [PaymentController::class, 'initiate'])->name('payment.initiate');
+//Route::get('/payment/callback', [PaymentController::class, 'callback'])->name('payment.callback');
+//Route::post('/payment/webhook', [PaymentController::class, 'webhook'])->name('payment.webhook');
+Route::get('/payment/success', [PaymentController::class, 'success'])->name('payment.success');
+Route::get('/payment/cancel', [PaymentController::class, 'cancel'])->name('payment.cancel');
