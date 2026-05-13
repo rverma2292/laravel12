@@ -48,6 +48,23 @@ class CommentResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('comment')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('likes_count')
+                    ->counts('likes')
+                    ->sortable()
+                    ->badge()
+                    ->color('info')
+                    ->action(
+                        Tables\Actions\Action::make('toggle_like')
+                        ->requiresConfirmation(true)
+                        ->action(function (Comment $record) {
+                            $like = $record->likes()->where('user_id', auth()->id())->first();
+                            if ($like) {
+                                $like->delete();
+                            }else {
+                                $record->likes()->create(['user_id' => auth()->id()]);
+                            }
+                        })
+                    ),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

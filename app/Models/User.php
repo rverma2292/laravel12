@@ -46,4 +46,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function likedPosts() {
+        return $this->morphedByMany(Post::class, 'likeable', 'likes');
+    }
+
+    public function likedComments() {
+        return $this->morphedByMany(Comment::class, 'likeable', 'likes');
+    }
 }

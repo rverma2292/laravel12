@@ -79,6 +79,27 @@ class PostResource extends Resource
                 ->color('info'),
                 Tables\Columns\IconColumn::make('published')
                     ->boolean(),
+                Tables\Columns\TextColumn::make('likes_count')
+                    ->label('Likes')
+                    ->counts('likes')
+                    ->badge()
+                    ->color('danger')
+                    // This makes the whole column a clickable action
+                    ->action(
+                        Tables\Actions\Action::make('toggle_like')
+                            ->requiresConfirmation(false)
+                            ->action(function (Post $record) {
+                                $like = $record->likes()->where('user_id', auth()->id())->first();
+
+                                if ($like) {
+                                    $like->delete();
+                                } else {
+                                    $record->likes()->create([
+                                        'user_id' => auth()->id(),
+                                    ]);
+                                }
+                            })
+                    ),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
