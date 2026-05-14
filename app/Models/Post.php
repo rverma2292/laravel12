@@ -15,6 +15,7 @@ class Post extends Model
         'content',
         'published',
         'image',
+        'category_id',
     ];
 
     public function Comments() {
@@ -34,6 +35,6 @@ class Post extends Model
      */
     public function getRouteKeyName()
     {
-        return 'slug'; //to find with slug
+        return 'id'; //to find with slug
     }
 }
