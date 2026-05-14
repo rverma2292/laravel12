@@ -84,4 +84,22 @@ class PaymentController extends Controller
         return view('payment.index');
     }
 
+    public function refund($paymentIntentId)
+    {
+        try {
+            $refund = $this->stripe->refunds->create([
+                'payment_intent' => $paymentIntentId,
+                 'amount' => 500, // Optional: Partial refund in paise (e.g., ₹50.00)
+            ]);
+
+            return response()->json([
+                'status' => 'success',
+                'refund_id' => $refund->id
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 400);
+        }
+    }
+
 }

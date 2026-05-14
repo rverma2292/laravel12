@@ -27,3 +27,4 @@ Route::post('/payment/initiate', [PaymentController::class, 'initiate'])->name('
 //Route::post('/payment/webhook', [PaymentController::class, 'webhook'])->name('payment.webhook');
 Route::get('/payment/success', [PaymentController::class, 'success'])->name('payment.success');
 Route::get('/payment/cancel', [PaymentController::class, 'cancel'])->name('payment.cancel');
+Route::get('/payment/refund/{paymentIntentId}', [PaymentController::class, 'refund'])->name('payment.refund');
