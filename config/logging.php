@@ -127,6 +127,12 @@ return [
             'path' => storage_path('logs/laravel.log'),
         ],
 
+        'custom_log' => [
+            'path' => storage_path('logs/custom_log.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+            'driver' => 'daily'
+        ],
+
     ],
 
 ];
