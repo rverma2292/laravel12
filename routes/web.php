@@ -28,3 +28,5 @@ Route::post('/payment/initiate', [PaymentController::class, 'initiate'])->name('
 Route::get('/payment/success', [PaymentController::class, 'success'])->name('payment.success');
 Route::get('/payment/cancel', [PaymentController::class, 'cancel'])->name('payment.cancel');
 Route::get('/payment/refund/{paymentIntentId}', [PaymentController::class, 'refund'])->name('payment.refund');
+
+Route::get('/eloquentqueries', [\App\Http\Controllers\QueryController::class,   'index'])->name('eloquentqueries.index');
