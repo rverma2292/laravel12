@@ -24,10 +24,11 @@ class FirstCommandLine extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): int
     {
         $this->info('This is the first command line');
         Log::info('This is the first command line to learn');
         $this->info('Execution end');
+        return 0;
     }
 }
