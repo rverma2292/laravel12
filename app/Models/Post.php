@@ -37,4 +37,8 @@ class Post extends Model
     {
         return 'id'; //to find with slug
     }
+
+    public function scopePublished($query) {
+        return $query->where('published', true);
+    }
 }
